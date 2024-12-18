@@ -1,12 +1,16 @@
-
-// export default app
-import singleSpaSvelte from 'single-spa-svelte';
-import App from './App.svelte';
-import type { SvelteComponent } from 'svelte';
+import singleSpaSvelte from "single-spa-svelte";
+import App from "./App.svelte";
 
 const svelteLifecycles = singleSpaSvelte({
-  component: App as unknown as typeof SvelteComponent, // Explicit cast
-  domElementGetter: () => document.getElementById('svelte-root')!,
+  component: App as any,
+  domElementGetter: () => document.getElementById("svelte-app") || createRootElement(),
 });
 
 export const { bootstrap, mount, unmount } = svelteLifecycles;
+
+function createRootElement() {
+  const el = document.createElement("div");
+  el.id = "svelte-app";
+  document.body.appendChild(el);
+  return el;
+}

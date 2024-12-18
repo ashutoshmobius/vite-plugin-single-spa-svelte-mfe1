@@ -22,5 +22,15 @@ export default defineConfig({
   build: {
     target: 'esnext',
     minify: false,
-  },
+    rollupOptions: {
+      input: "src/spa.ts",
+      preserveEntrySignatures: "exports-only",
+      output: {
+        exports: "auto",
+        format: "esm",
+        entryFileNames: "spa.js",
+      }
+    }
+  }
+
 });
